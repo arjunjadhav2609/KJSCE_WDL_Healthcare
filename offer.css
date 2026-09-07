@@ -1,0 +1,23 @@
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 8px rgb(60, 70, 255);
+    }
+    50% {
+        box-shadow: 0 0 25px rgb(0, 64, 255);
+    }
+    100% {
+        box-shadow: 0 0 8px rgb(66, 60, 255);
+    }
+}
+
+.offerb{
+    background-color: rgb(214, 230, 255);
+    color: rgb(0, 47, 150);
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    animation: glow 2s infinite;
+}

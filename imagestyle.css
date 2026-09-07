@@ -1,0 +1,23 @@
+.images{
+    display: inline-block;
+    width: 400px;
+    margin: 15px;
+    padding: 15px;
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: 10px;
+    background-color: rgb(186, 239, 255);
+    box-shadow: 0 4px 8px black;
+    text-align: center;
+    vertical-align:middle;
+    overflow: hidden;
+}
+.images img{
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.images img:hover{
+    transform: scale(1.25);
+}

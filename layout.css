@@ -1,0 +1,15 @@
+.pg{
+    display: flex;
+    gap: 20px;
+    align-items: center;    
+    border: 1px solid rgb(200, 220, 230);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.mainc{
+    flex: 3;
+}
+.timings{
+    flex:1;
+}
