@@ -34,3 +34,7 @@ button:hover{
     color: rgb(159, 239, 255);
 
 }
+
+.invalid {
+    border: 2px solid red;
+}

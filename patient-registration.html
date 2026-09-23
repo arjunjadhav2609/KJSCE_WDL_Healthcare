@@ -6,6 +6,7 @@
     <title>Online Registration</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="form.css">
+
 </head>
 <body>
     <h1>Online Registration</h1>
@@ -14,16 +15,22 @@
     <form>
         <fieldset>
             <legend>Personal Details</legend>
-        
+
             <label for = "name">Patient Name:</label>
-            <input type = "text" id = "name" name = "name" placeholder="Enter your Full name" required autofocus><br><br>
+            <input type = "text" id = "name" name = "name" placeholder="Enter your Full name" autofocus>
+            <span id = "nameError" style="color:red;"></span><br><br>
 
             <label for = "age">Age:</label>
             <input type = "number" id = "age" name = "age" placeholder="Enter your Age" required><br><br>
 
             <label>Gender:</label>
-            <label><input type="radio" name = "Gender" value = "Male" required>Male</label>
-            <label><input type="radio" name = "Gender" value = "Female" required>Female</label>
+            <label><input type="radio" name = "Gender" value = "Male">Male</label>
+            <label><input type="radio" name = "Gender" value = "Female">Female</label>
+            <span id = "genderError" style="color:red;"></span><br><br>
+
+            <label for = "address">Address:</label>
+            <input type = "text" id = "address" name = "address" placeholder="Enter your Address">
+            <span id = "addressError" style="color:red;"></span><br><br>
 
         </fieldset>
         <fieldset>
@@ -31,10 +38,12 @@
             <legend>Patient's Contact</legend>
 
             <label for = "mono">Mobile Number:</label>
-            <input type = "tel" id = "mono" name = "mobilenumber" pattern="[0-9]{10}" required><br><br>
+            <input type = "tel" id = "mono" name = "mobilenumber">
+            <span id = "monoError" style="color:red;"></span><br><br>
 
             <label for = "email">Email:</label>
-            <input type = "email" id = "email" name = "email" placeholder="arjunpathlabs@gmail.com" required>
+            <input type = "text" id = "email" name = "email" placeholder="arjunpathlabs@gmail.com">
+            <span id = "emailError" style="color:red;"></span>
 
         </fieldset>
 
@@ -43,7 +52,35 @@
             <legend>Test & Appointment Details</legend>
 
             <label for="dob">DOB:</label>
-            <input type="date" id="dob" name="dob"><br><br>
+            <input type="date" id="dob" name="dob">
+            <span id = "dobError" style="color:red;"></span><br><br>
+
+            <label for="bloodgroup">Blood Group:</label>
+            <select id="bloodgroup" name="bloodgroup">
+                <option value="">Select</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+            <span id = "bloodgroupError" style="color:red;"></span><br><br>
+
+            <label for="regdate">Registration Date:</label>
+            <input type="date" id="regdate" name="regdate">
+            <span id = "regdateError" style="color:red;"></span><br><br>
+
+            <label for="dept">Department:</label>
+            <select id="dept" name="dept">
+                <option value="">Select</option>
+                <option value="General">General Physician</option>
+                <option value="Pathology">Pathology</option>
+                <option value="Cardiology">Cardiology</option>
+            </select>
+            <span id = "deptError" style="color:red;"></span><br><br>
 
             <label>Test Selection:</label>
             <label><input type="checkbox" name="testsel" value="CBC"> CBC</label>
@@ -53,18 +90,18 @@
             <label><input type="checkbox" name="testsel" value="ECG"> ECG</label><br><br>
 
             <label for="pad">Preferred Appointment Date:</label>
-            <input type="date" id="pad" name="pad">
+            <input type="date" id="pad" name="pad"><br><br>
 
         </fieldset>
 
         <fieldset>
 
             <legend>Sample & Prescription</legend>
-        
+
             <label>Sample Collection Preference:</label>
             <label><input type="radio" name="scp" value="Hc" required> Home Collection</label>
             <label><input type="radio" name="scp" value="Vl" required> Visit Lab</label><br><br>
-        
+
             <label for="udp">Upload Doctor Prescription:</label>
             <input type="file" id="udp" name="udp">
 
@@ -72,7 +109,7 @@
 
         <br><br>
         <button type="submit">Register</button>
-
+        <button type="reset">Reset</button>
 
     </form>
 
@@ -80,5 +117,139 @@
     <nav>
         <a href="index.html">Home</a>
     </nav>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            var isValid = true;
+
+            var name = document.getElementById("name").value.trim();
+            var nameError = document.getElementById("nameError");
+            var namePattern = /^[A-Za-z ]+$/;
+
+            if (name === "") {
+                nameError.textContent = "Name cannot be empty";
+                isValid = false;
+            } else if (!namePattern.test(name)) {
+                nameError.textContent = "Name should contain only letters and spaces";
+                isValid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            var address = document.getElementById("address").value.trim();
+            var addressError = document.getElementById("addressError");
+
+            if (address === "") {
+                addressError.textContent = "Address cannot be empty";
+                isValid = false;
+            } else {
+                addressError.textContent = "";
+            }
+
+            var mono = document.getElementById("mono").value.trim();
+            var monoError = document.getElementById("monoError");
+            var monoPattern = /^[0-9]{10}$/;
+
+            if (mono === "") {
+                monoError.textContent = "Mobile number cannot be empty";
+                isValid = false;
+            } else if (!monoPattern.test(mono)) {
+                monoError.textContent = "Enter a valid 10-digit mobile number";
+                isValid = false;
+            } else {
+                monoError.textContent = "";
+            }
+
+            var email = document.getElementById("email").value.trim();
+            var emailError = document.getElementById("emailError");
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === "") {
+                emailError.textContent = "Email cannot be empty";
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                emailError.textContent = "Enter a valid email address";
+                isValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            var genderChecked = document.querySelector('input[name="Gender"]:checked');
+            var genderError = document.getElementById("genderError");
+
+            if (!genderChecked) {
+                genderError.textContent = "Please select a gender";
+                isValid = false;
+            } else {
+                genderError.textContent = "";
+            }
+
+            var bloodgroup = document.getElementById("bloodgroup");
+            var bloodgroupError = document.getElementById("bloodgroupError");
+
+            if (bloodgroup.value === "") {
+                bloodgroupError.textContent = "Please select a blood group";
+                bloodgroup.classList.add("invalid");
+                isValid = false;
+            } else {
+                bloodgroupError.textContent = "";
+                bloodgroup.classList.remove("invalid");
+            }
+
+            var dept = document.getElementById("dept");
+            var deptError = document.getElementById("deptError");
+
+            if (dept.value === "") {
+                deptError.textContent = "Please select a department";
+                dept.classList.add("invalid");
+                isValid = false;
+            } else {
+                deptError.textContent = "";
+                dept.classList.remove("invalid");
+            }
+
+            var dob = document.getElementById("dob");
+            var dobError = document.getElementById("dobError");
+            var today = new Date().toISOString().split("T")[0];
+
+            if (dob.value === "") {
+                dobError.textContent = "Date of birth cannot be empty";
+                dob.classList.add("invalid");
+                isValid = false;
+            } else if (dob.value > today) {
+                dobError.textContent = "Date of birth cannot be in the future";
+                dob.classList.add("invalid");
+                isValid = false;
+            } else {
+                dobError.textContent = "";
+                dob.classList.remove("invalid");
+            }
+
+            var regdate = document.getElementById("regdate");
+            var regdateError = document.getElementById("regdateError");
+
+            if (regdate.value === "") {
+                regdateError.textContent = "Registration date cannot be empty";
+                regdate.classList.add("invalid");
+                isValid = false;
+            } else if (regdate.value > today) {
+                regdateError.textContent = "Registration date cannot be in the future";
+                regdate.classList.add("invalid");
+                isValid = false;
+            } else {
+                regdateError.textContent = "";
+                regdate.classList.remove("invalid");
+            }
+
+            if (isValid) {
+                alert("Registration successful");
+            }
+
+        });
+    </script>
+
 </body>
 </html>
