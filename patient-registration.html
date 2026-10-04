@@ -6,13 +6,21 @@
     <title>Online Registration</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="form.css">
+    <style>
+        input.invalid,
+        select.invalid,
+        textarea.invalid {
+            border: 2px solid #c62828;
+            background-color: #fff5f5;
+        }
+    </style>
 
 </head>
 <body>
     <h1>Online Registration</h1>
     <hr>
 
-    <form>
+    <form novalidate>
         <fieldset>
             <legend>Personal Details</legend>
 
@@ -24,8 +32,8 @@
             <input type = "number" id = "age" name = "age" placeholder="Enter your Age" required><br><br>
 
             <label>Gender:</label>
-            <label><input type="radio" name = "Gender" value = "Male">Male</label>
-            <label><input type="radio" name = "Gender" value = "Female">Female</label>
+            <label><input type="radio" id="genderMale" name="Gender" value="Male">Male</label>
+            <label><input type="radio" id="genderFemale" name="Gender" value="Female">Female</label>
             <span id = "genderError" style="color:red;"></span><br><br>
 
             <label for = "address">Address:</label>
@@ -83,11 +91,11 @@
             <span id = "deptError" style="color:red;"></span><br><br>
 
             <label>Test Selection:</label>
-            <label><input type="checkbox" name="testsel" value="CBC"> CBC</label>
-            <label><input type="checkbox" name="testsel" value="HbA1c"> HbA1c</label>
-            <label><input type="checkbox" name="testsel" value="LFT"> LFT</label>
-            <label><input type="checkbox" name="testsel" value="KFT"> KFT</label>
-            <label><input type="checkbox" name="testsel" value="ECG"> ECG</label><br><br>
+            <label><input type="checkbox" id="testCBC" name="testsel" value="CBC"> CBC</label>
+            <label><input type="checkbox" id="testHbA1c" name="testsel" value="HbA1c"> HbA1c</label>
+            <label><input type="checkbox" id="testLFT" name="testsel" value="LFT"> LFT</label>
+            <label><input type="checkbox" id="testKFT" name="testsel" value="KFT"> KFT</label>
+            <label><input type="checkbox" id="testECG" name="testsel" value="ECG"> ECG</label><br><br>
 
             <label for="pad">Preferred Appointment Date:</label>
             <input type="date" id="pad" name="pad"><br><br>
@@ -99,8 +107,8 @@
             <legend>Sample & Prescription</legend>
 
             <label>Sample Collection Preference:</label>
-            <label><input type="radio" name="scp" value="Hc" required> Home Collection</label>
-            <label><input type="radio" name="scp" value="Vl" required> Visit Lab</label><br><br>
+            <label><input type="radio" id="scpHome" name="scp" value="Hc" required> Home Collection</label>
+            <label><input type="radio" id="scpLab" name="scp" value="Vl" required> Visit Lab</label><br><br>    
 
             <label for="udp">Upload Doctor Prescription:</label>
             <input type="file" id="udp" name="udp">
@@ -118,138 +126,141 @@
         <a href="index.html">Home</a>
     </nav>
 
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function () {
 
-            e.preventDefault();
+        $("form").on("submit", function (e) {
 
-            var isValid = true;
+        e.preventDefault();
 
-            var name = document.getElementById("name").value.trim();
-            var nameError = document.getElementById("nameError");
-            var namePattern = /^[A-Za-z ]+$/;
+        var isValid = true;
 
-            if (name === "") {
-                nameError.textContent = "Name cannot be empty";
-                isValid = false;
-            } else if (!namePattern.test(name)) {
-                nameError.textContent = "Name should contain only letters and spaces";
-                isValid = false;
-            } else {
-                nameError.textContent = "";
-            }
+        var name = $("#name").val().trim();
+        var namePattern = /^[A-Za-z ]+$/;
 
-            var address = document.getElementById("address").value.trim();
-            var addressError = document.getElementById("addressError");
+        if (name === "") {
+            $("#nameError").text("Name cannot be empty");
+            $("#name").addClass("invalid");
+            isValid = false;
+        } else if (!namePattern.test(name)) {
+            $("#nameError").text("Name should contain only letters and spaces");
+            $("#name").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#nameError").text("");
+            $("#name").removeClass("invalid");
+        }
 
-            if (address === "") {
-                addressError.textContent = "Address cannot be empty";
-                isValid = false;
-            } else {
-                addressError.textContent = "";
-            }
+        var address = $("#address").val().trim();
 
-            var mono = document.getElementById("mono").value.trim();
-            var monoError = document.getElementById("monoError");
-            var monoPattern = /^[0-9]{10}$/;
+        if (address === "") {
+            $("#addressError").text("Address cannot be empty");
+            $("#address").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#addressError").text("");
+            $("#address").removeClass("invalid");
+        }
 
-            if (mono === "") {
-                monoError.textContent = "Mobile number cannot be empty";
-                isValid = false;
-            } else if (!monoPattern.test(mono)) {
-                monoError.textContent = "Enter a valid 10-digit mobile number";
-                isValid = false;
-            } else {
-                monoError.textContent = "";
-            }
+                var mono = $("#mono").val().trim();
+        var monoPattern = /^[6-9][0-9]{9}$/;
 
-            var email = document.getElementById("email").value.trim();
-            var emailError = document.getElementById("emailError");
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (mono === "") {
+            $("#monoError").text("Mobile number cannot be empty");
+            $("#mono").addClass("invalid");
+            isValid = false;
+        } else if (!monoPattern.test(mono)) {
+            $("#monoError").text("Enter a valid 10-digit Indian mobile number (starts with 6-9)");
+            $("#mono").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#monoError").text("");
+            $("#mono").removeClass("invalid");
+        }
 
-            if (email === "") {
-                emailError.textContent = "Email cannot be empty";
-                isValid = false;
-            } else if (!emailPattern.test(email)) {
-                emailError.textContent = "Enter a valid email address";
-                isValid = false;
-            } else {
-                emailError.textContent = "";
-            }
+        var email = $("#email").val().trim();
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            var genderChecked = document.querySelector('input[name="Gender"]:checked');
-            var genderError = document.getElementById("genderError");
+        if (email === "") {
+            $("#emailError").text("Email cannot be empty");
+            $("#email").addClass("invalid");
+            isValid = false;
+        } else if (!emailPattern.test(email)) {
+            $("#emailError").text("Enter a valid email address");
+            $("#email").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#emailError").text("");
+            $("#email").removeClass("invalid");
+        }
 
-            if (!genderChecked) {
-                genderError.textContent = "Please select a gender";
-                isValid = false;
-            } else {
-                genderError.textContent = "";
-            }
+                if ($("input[name='Gender']:checked").length === 0) {
+            $("#genderError").text("Please select a gender");
+            isValid = false;
+        } else {
+            $("#genderError").text("");
+        }
 
-            var bloodgroup = document.getElementById("bloodgroup");
-            var bloodgroupError = document.getElementById("bloodgroupError");
+        if ($("#bloodgroup").val() === "") {
+            $("#bloodgroupError").text("Please select a blood group");
+            $("#bloodgroup").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#bloodgroupError").text("");
+            $("#bloodgroup").removeClass("invalid");
+        }
 
-            if (bloodgroup.value === "") {
-                bloodgroupError.textContent = "Please select a blood group";
-                bloodgroup.classList.add("invalid");
-                isValid = false;
-            } else {
-                bloodgroupError.textContent = "";
-                bloodgroup.classList.remove("invalid");
-            }
+        if ($("#dept").val() === "") {
+            $("#deptError").text("Please select a department");
+            $("#dept").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#deptError").text("");
+            $("#dept").removeClass("invalid");
+        }
 
-            var dept = document.getElementById("dept");
-            var deptError = document.getElementById("deptError");
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-            if (dept.value === "") {
-                deptError.textContent = "Please select a department";
-                dept.classList.add("invalid");
-                isValid = false;
-            } else {
-                deptError.textContent = "";
-                dept.classList.remove("invalid");
-            }
+        var dob = $("#dob").val();
 
-            var dob = document.getElementById("dob");
-            var dobError = document.getElementById("dobError");
-            var today = new Date().toISOString().split("T")[0];
+        if (dob === "") {
+            $("#dobError").text("Date of birth cannot be empty");
+            $("#dob").addClass("invalid");
+            isValid = false;
+        } else if (new Date(dob + "T00:00:00") > today) {
+            $("#dobError").text("Date of birth cannot be in the future");
+            $("#dob").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#dobError").text("");
+            $("#dob").removeClass("invalid");
+        }
 
-            if (dob.value === "") {
-                dobError.textContent = "Date of birth cannot be empty";
-                dob.classList.add("invalid");
-                isValid = false;
-            } else if (dob.value > today) {
-                dobError.textContent = "Date of birth cannot be in the future";
-                dob.classList.add("invalid");
-                isValid = false;
-            } else {
-                dobError.textContent = "";
-                dob.classList.remove("invalid");
-            }
+        var regdate = $("#regdate").val();
 
-            var regdate = document.getElementById("regdate");
-            var regdateError = document.getElementById("regdateError");
+        if (regdate === "") {
+            $("#regdateError").text("Registration date cannot be empty");
+            $("#regdate").addClass("invalid");
+            isValid = false;
+        } else if (new Date(regdate + "T00:00:00") > today) {
+            $("#regdateError").text("Registration date cannot be in the future");
+            $("#regdate").addClass("invalid");
+            isValid = false;
+        } else {
+            $("#regdateError").text("");
+            $("#regdate").removeClass("invalid");
+        }
 
-            if (regdate.value === "") {
-                regdateError.textContent = "Registration date cannot be empty";
-                regdate.classList.add("invalid");
-                isValid = false;
-            } else if (regdate.value > today) {
-                regdateError.textContent = "Registration date cannot be in the future";
-                regdate.classList.add("invalid");
-                isValid = false;
-            } else {
-                regdateError.textContent = "";
-                regdate.classList.remove("invalid");
-            }
+        if (isValid) {
+            alert("Registration successful");
+        }
 
-            if (isValid) {
-                alert("Registration successful");
-            }
+    });
 
-        });
-    </script>
+});
+</script>
 
 </body>
 </html>
