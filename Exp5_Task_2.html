@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task 2 - Appointment Priority</title>
+</head>
+<body>
+    <h1>Patient Appointment Priority Decision</h1>
+
+    <script>
+        var age = 65;
+        var temperature = 37.5;
+        var severity = "Moderate";
+        var emergencyStatus = "No";
+
+        var recommendation;
+
+        if (emergencyStatus === "Yes") {
+            recommendation = "Emergency Consultation Required";
+        } else if (temperature >= 39) {
+            recommendation = "High Priority Consultation";
+        } else if (severity === "Severe") {
+            recommendation = "High Priority Consultation";
+        } else if (age >= 60 && severity === "Moderate") {
+            recommendation = "Priority Consultation";
+        } else {
+            recommendation = "Regular Consultation";
+        }
+
+        console.log("Age: " + age);
+        console.log("Temperature: " + temperature);
+        console.log("Severity: " + severity);
+        console.log("Emergency Status: " + emergencyStatus);
+        console.log("Recommendation: " + recommendation);
+
+        alert("Recommendation: " + recommendation);
+    </script>
+</body>
+</html>

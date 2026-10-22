@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task 5 - Registration Validation</title>
+</head>
+<body>
+    <h1>Patient Registration Details Validation</h1>
+
+    <form>
+        <label for = "name">Patient Name:</label>
+        <input type = "text" id = "name" name = "name" placeholder="Rahul Sharma">
+        <span id = "nameError" style="color:red;"></span><br><br>
+
+        <label for = "mono">Mobile Number:</label>
+        <input type = "text" id = "mono" name = "mono" placeholder="9876543210">
+        <span id = "monoError" style="color:red;"></span><br><br>
+
+        <label for = "pid">Patient ID:</label>
+        <input type = "text" id = "pid" name = "pid" placeholder="PAT-1234">
+        <span id = "pidError" style="color:red;"></span><br><br>
+
+        <label for = "email">Email:</label>
+        <input type = "text" id = "email" name = "email" placeholder="rahul@gmail.com">
+        <span id = "emailError" style="color:red;"></span><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        function validateName() {
+            var name = document.getElementById("name").value.trim();
+            var nameError = document.getElementById("nameError");
+            var namePattern = /^[A-Za-z ]+$/;
+
+            if (name === "") {
+                nameError.textContent = "Name cannot be empty";
+                return false;
+            } else if (!namePattern.test(name)) {
+                nameError.textContent = "Name should contain only letters and spaces";
+                return false;
+            } else {
+                nameError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateMobile() {
+            var mono = document.getElementById("mono").value.trim();
+            var monoError = document.getElementById("monoError");
+            var monoPattern = /^[0-9]{10}$/;
+
+            if (mono === "") {
+                monoError.textContent = "Mobile number cannot be empty";
+                return false;
+            } else if (!monoPattern.test(mono)) {
+                monoError.textContent = "Enter a valid 10-digit mobile number";
+                return false;
+            } else {
+                monoError.textContent = "";
+                return true;
+            }
+        }
+
+        function validatePatientId() {
+            var pid = document.getElementById("pid").value.trim();
+            var pidError = document.getElementById("pidError");
+            var pidPattern = /^PAT-[0-9]{4}$/;
+
+            if (pid === "") {
+                pidError.textContent = "Patient ID cannot be empty";
+                return false;
+            } else if (!pidPattern.test(pid)) {
+                pidError.textContent = "Patient ID must be in the format PAT-1234";
+                return false;
+            } else {
+                pidError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            var email = document.getElementById("email").value.trim();
+            var emailError = document.getElementById("emailError");
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === "") {
+                emailError.textContent = "Email cannot be empty";
+                return false;
+            } else if (!emailPattern.test(email)) {
+                emailError.textContent = "Enter a valid email address";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true;
+            }
+        }
+
+        document.querySelector("form").addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            var nameValid = validateName();
+            var mobileValid = validateMobile();
+            var pidValid = validatePatientId();
+            var emailValid = validateEmail();
+
+            if (nameValid && mobileValid && pidValid && emailValid) {
+                alert("Registration successful");
+            }
+
+        });
+    </script>
+
+</body>
+</html>

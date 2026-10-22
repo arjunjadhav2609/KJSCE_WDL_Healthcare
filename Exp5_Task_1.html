@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task 1 - Registration Fee</title>
+</head>
+<body>
+    <h1>Patient Registration Fee Calculation</h1>
+
+    <script>
+        var patientName = "Rahul Sharma";
+        var patientId = "PAT-1001";
+        var age = 65;
+        var consultationFee = 500;
+        var registrationFee = 100;
+
+        var totalAmount = consultationFee + registrationFee;
+
+        var registrationStatus;
+        if (age >= 60) {
+            registrationStatus = "Eligible for senior-citizen discount";
+        } else {
+            registrationStatus = "Not eligible for senior-citizen discount";
+        }
+
+        document.write("Patient Name: " + patientName + "<br>");
+        document.write("Patient ID: " + patientId + "<br>");
+        document.write("Total Amount: " + totalAmount + "<br>");
+        document.write("Registration Status: " + registrationStatus + "<br>");
+
+        console.log("Patient Name: " + patientName);
+        console.log("Patient ID: " + patientId);
+        console.log("Total Amount: " + totalAmount);
+        console.log("Registration Status: " + registrationStatus);
+
+        alert("Patient Name: " + patientName + "\nPatient ID: " + patientId + "\nTotal Amount: " + totalAmount + "\nRegistration Status: " + registrationStatus);
+    </script>
+</body>
+</html>

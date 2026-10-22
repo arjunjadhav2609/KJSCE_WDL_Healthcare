@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task 4 - Patient Age Array</title>
+</head>
+<body>
+    <h1>Patient Age and Appointment Data</h1>
+
+    <script>
+        var patientAges = [22, 35, 67, 45, 29, 72, 56, 18, 64, 40];
+
+        console.log("All patient ages: " + patientAges);
+
+        var minAge = patientAges[0];
+        var maxAge = patientAges[0];
+        var total = 0;
+        var seniorCount = 0;
+        var belowEighteenCount = 0;
+
+        for (var i = 0; i < patientAges.length; i++) {
+            var currentAge = patientAges[i];
+
+            if (currentAge < minAge) {
+                minAge = currentAge;
+            }
+            if (currentAge > maxAge) {
+                maxAge = currentAge;
+            }
+
+            total = total + currentAge;
+
+            if (currentAge >= 60) {
+                seniorCount = seniorCount + 1;
+            }
+            if (currentAge < 18) {
+                belowEighteenCount = belowEighteenCount + 1;
+            }
+        }
+
+        var averageAge = total / patientAges.length;
+
+        console.log("Minimum age: " + minAge);
+        console.log("Maximum age: " + maxAge);
+        console.log("Average age: " + averageAge);
+        console.log("Number of senior-citizen patients: " + seniorCount);
+        console.log("Number of patients below 18: " + belowEighteenCount);
+
+        console.log("Patients above 60:");
+        for (var j = 0; j < patientAges.length; j++) {
+            if (patientAges[j] > 60) {
+                console.log(patientAges[j]);
+            }
+        }
+    </script>
+</body>
+</html>

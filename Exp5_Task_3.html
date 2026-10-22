@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task 3 - Patient Object</title>
+</head>
+<body>
+    <h1>Patient Registration Object</h1>
+
+    <script>
+        var patient = {
+            patientName: "Rahul Sharma",
+            patientId: "PAT-1001",
+            age: 65,
+            gender: "Male",
+            bloodGroup: "B+",
+            mobile: "9876543210",
+            department: "Cardiology",
+            appointmentType: "Consultation",
+            registrationStatus: "Confirmed",
+
+            displayPatient: function () {
+                console.log("Patient Name: " + this.patientName);
+                console.log("Patient ID: " + this.patientId);
+                console.log("Age: " + this.age);
+                console.log("Gender: " + this.gender);
+                console.log("Blood Group: " + this.bloodGroup);
+                console.log("Mobile: " + this.mobile);
+            },
+
+            displayAppointment: function () {
+                console.log("Department: " + this.department);
+                console.log("Appointment Type: " + this.appointmentType);
+                console.log("Registration Status: " + this.registrationStatus);
+            },
+
+            checkAgeCategory: function () {
+                if (this.age >= 60) {
+                    console.log(this.patientName + " is a senior citizen.");
+                } else {
+                    console.log(this.patientName + " is an adult.");
+                }
+            }
+        };
+
+        patient.displayPatient();
+        patient.displayAppointment();
+        patient.checkAgeCategory();
+    </script>
+</body>
+</html>
